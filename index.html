@@ -3,506 +3,827 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSJournal | Coming Soon</title>
+    <title>CS Journal - Academic Excellence</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Favicon with atom icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%235c6bc0' opacity='0.8'/><circle cx='50' cy='50' r='20' fill='%23ffd700'/><circle cx='30' cy='30' r='8' fill='%235c6bc0'/><circle cx='70' cy='30' r='8' fill='%235c6bc0'/><circle cx='30' cy='70' r='8' fill='%235c6bc0'/><circle cx='70' cy='70' r='8' fill='%235c6bc0'/></svg>">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #283593;
+            --accent-color: #5c6bc0;
+            --gold-color: #ffd700;
+            --light-color: #f5f5f5;
+            --dark-color: #121212;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
+            background-color: var(--dark-color);
+            color: var(--light-color);
             overflow-x: hidden;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(90, 120, 220, 0.1) 0%, transparent 20%);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Typography Animations */
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes letterGlow {
+            0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(92, 107, 192, 0.8), 0 0 30px rgba(92, 107, 192, 0.4); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Header Styles - Fixed with proper spacing */
         header {
-            padding: 30px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(92, 107, 192, 0.3);
+            animation: floatUp 1s ease-out;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-weight: 600;
-            color: #2c3e50;
-            letter-spacing: 1px;
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            height: 50px;
         }
 
-        .logo i {
-            color: #3498db;
-            font-size: 2.5rem;
+        .logo-img {
+            height: 100%;
+            max-width: 200px;
+            object-fit: contain;
+            filter: brightness(1.1);
         }
 
-        .logo span {
-            color: #e74c3c;
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
         }
 
-        .hero-section {
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+        }
+
+        nav a:hover {
+            color: var(--gold-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold-color), var(--accent-color));
+            transition: width 0.5s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section with adjusted spacing for fixed header */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 5% 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(28, 58, 173, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(90, 120, 220, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: floatUp 1.5s ease-out 0.5s both;
+            position: relative;
+        }
+
+        .hero h1 .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--gold-color);
+            animation: typewriter 3s steps(30) 1s 1 normal both,
+                       blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--gold-color); }
+        }
+
+        .hero h1 .journal-text {
+            color: var(--gold-color);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            animation: floatUp 1.5s ease-out 1s both;
+            color: #ccc;
+        }
+
+        /* Subject Buttons */
+        .subject-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            animation: floatUp 1.5s ease-out 1.2s both;
+        }
+
+        .subject-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 85vh;
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin-bottom: 60px;
-        }
-
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            line-height: 1.2;
-        }
-
-        .hero-content p {
-            font-size: 1.25rem;
-            color: #555;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .highlight {
-            color: #e74c3c;
-            font-weight: 600;
-        }
-
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-
-        .countdown-item {
-            background: white;
-            border-radius: 12px;
-            padding: 25px 15px;
-            min-width: 110px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .countdown-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-
-        .countdown-value {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: #2c3e50;
-            display: block;
-            line-height: 1;
-        }
-
-        .countdown-label {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 8px;
-        }
-
-        .subscription-form {
-            max-width: 600px;
-            width: 100%;
-            margin-top: 30px;
-        }
-
-        .form-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .form-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .form-input {
-            flex: 1;
-            min-width: 250px;
-            padding: 18px 25px;
-            border: none;
-            border-radius: 50px;
-            background: white;
-            font-size: 1rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: box-shadow 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            box-shadow: 0 5px 25px rgba(52, 152, 219, 0.3);
-        }
-
-        .form-btn {
-            background: linear-gradient(to right, #3498db, #2c3e50);
+            width: 120px;
+            height: 120px;
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 10px;
+            border: 2px solid rgba(92, 107, 192, 0.3);
             color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
+            text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+            padding: 1rem;
         }
 
-        .form-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
-            background: linear-gradient(to right, #2980b9, #2c3e50);
-        }
-
-        .journal-image {
-            margin-top: 60px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            max-width: 800px;
-            width: 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .journal-image:hover {
-            transform: scale(1.02);
-        }
-
-        .journal-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 15px;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #2c3e50;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
+        .subject-btn:hover {
             transform: translateY(-5px);
-            color: #3498db;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(28, 58, 173, 0.3);
+            background: rgba(40, 40, 50, 0.9);
         }
 
-        footer {
+        .subject-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--gold-color);
+        }
+
+        .subject-btn span {
+            font-size: 1.1rem;
+            font-weight: bold;
             text-align: center;
-            padding: 30px 0;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-top: 40px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #2ecc71;
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.5s ease;
-            z-index: 1000;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            animation: floatUp 1.5s ease-out 1.5s both;
+            border: 2px solid rgba(92, 107, 192, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
         }
 
-        .notification.show {
-            transform: translateY(0);
-            opacity: 1;
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(28, 58, 173, 0.4);
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
         }
 
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .hero-content h1 {
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+
+        .cta-button:hover::after {
+            left: 100%;
+        }
+
+        /* YouTube Video Section */
+        .video-section {
+            padding: 4rem 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: floatUp 1s ease-out both;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(92, 107, 192, 0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Top Journals List */
+        .journals-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .journals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .journal-card {
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(92, 107, 192, 0.2);
+            animation: floatUp 1s ease-out both;
+        }
+
+        .journal-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(28, 58, 173, 0.2);
+        }
+
+        .journal-card h3 {
+            color: var(--gold-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .journal-card p {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Floating letters background */
+        .floating-letters {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .letter {
+            position: absolute;
+            font-size: 1.8rem;
+            color: rgba(92, 107, 192, 0.1);
+            font-weight: bold;
+            user-select: none;
+            animation: floatAround 20s infinite linear;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* Content Sections */
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            animation: floatUp 1s ease-out both;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-color), var(--accent-color));
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(10, 10, 15, 0.95);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(92, 107, 192, 0.3);
+            margin-top: 4rem;
+        }
+
+        .copyright {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
                 font-size: 2.8rem;
             }
             
-            .hero-content p {
-                font-size: 1.1rem;
+            .mobile-menu-btn {
+                display: block;
             }
             
-            .countdown-item {
-                min-width: 90px;
-                padding: 20px 10px;
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(18, 18, 18, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                z-index: 1000;
+                border-top: 1px solid rgba(92, 107, 192, 0.3);
             }
             
-            .countdown-value {
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav li {
+                margin: 1rem 0;
+                margin-left: 0;
+            }
+            
+            .subject-buttons {
+                gap: 1rem;
+            }
+            
+            .subject-btn {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .subject-btn i {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 100px;
+            }
+            
+            .hero h1 {
                 font-size: 2.2rem;
             }
             
-            .form-group {
-                flex-direction: column;
-                align-items: center;
+            .hero p {
+                font-size: 1.1rem;
             }
             
-            .form-input {
-                width: 100%;
-                max-width: 400px;
+            .section-title {
+                font-size: 2rem;
             }
             
-            .form-btn {
-                width: 100%;
-                max-width: 400px;
+            .journals-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .subject-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .subject-btn {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .subject-btn i {
+                font-size: 1.8rem;
+            }
+            
+            .subject-btn span {
+                font-size: 1rem;
             }
         }
 
         @media (max-width: 480px) {
-            .logo {
-                font-size: 2.2rem;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            
-            .countdown-item {
-                min-width: 70px;
-                padding: 15px 5px;
-            }
-            
-            .countdown-value {
+            .hero h1 {
                 font-size: 1.8rem;
             }
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+            
+            .logo-img {
+                max-width: 150px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .subject-buttons {
+                gap: 0.8rem;
+            }
+            
+            .subject-btn {
+                width: 80px;
+                height: 80px;
+                padding: 0.8rem;
+            }
+            
+            .subject-btn i {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .subject-btn span {
+                font-size: 0.9rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 1.1rem;
             }
         }
 
-        .fade-in {
-            animation: fadeInUp 0.8s ease forwards;
+        /* Scroll animation classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
         }
 
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
-
-        .delay-4 {
-            animation-delay: 0.8s;
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo fade-in">
-                <i class="fas fa-book-open"></i>
-                CS<span>Journal</span>
+    <!-- Header with Logo -->
+    <header>
+        <div class="logo-container">
+            <img src="https://i.ibb.co/tMJhGZKd/Smart-Select-20251211-223501-Canva.jpg" alt="CS Journal Logo" class="logo-img">
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav>
+            <ul id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#journals">Top Journals</a></li>
+                <li><a href="#subjects">Subjects</a></li>
+                <li><a href="#video">Introduction</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-letters" id="floatingLetters"></div>
+        <h1>
+            <span class="typewriter">CS Journal: </span>
+            <span class="journal-text">Advancing Computer Science Research</span>
+        </h1>
+        <p>A premier platform for publishing cutting-edge research in computer science, artificial intelligence, data science, and computational theory.</p>
+        
+        <!-- Subject Buttons -->
+        <div class="subject-buttons" id="subjects">
+            <a href="#" class="subject-btn" onclick="showSubject('cs')">
+                <i class="fas fa-laptop-code"></i>
+                <span>Computer Science</span>
+            </a>
+            <a href="#" class="subject-btn" onclick="showSubject('ds')">
+                <i class="fas fa-chart-bar"></i>
+                <span>Data Science</span>
+            </a>
+            <a href="#" class="subject-btn" onclick="showSubject('ai')">
+                <i class="fas fa-robot"></i>
+                <span>AI & ML</span>
+            </a>
+            <a href="#" class="subject-btn" onclick="showSubject('cyber')">
+                <i class="fas fa-shield-alt"></i>
+                <span>Cybersecurity</span>
+            </a>
+        </div>
+        
+        <a href="#submissions" class="cta-button">
+            Submit Your Research
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </section>
+
+    <!-- YouTube Video Section -->
+    <section class="video-section" id="video">
+        <h2 class="section-title">Journal Introduction</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/b5N9lLwLyyA" 
+                    title="CS Journal Introduction" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <p style="text-align: center; margin-top: 1.5rem; color: #ccc; font-size: 1.1rem;">
+            Watch our introduction video to learn more about CS Journal's mission and scope
+        </p>
+    </section>
+
+    <!-- Top Journals List -->
+    <section class="journals-section" id="journals">
+        <h2 class="section-title">Top Computer Science Journals</h2>
+        <div class="journals-grid">
+            <div class="journal-card animate-on-scroll">
+                <h3>Communications of the ACM</h3>
+                <p>The premier monthly journal for computing and information technology professionals.</p>
             </div>
-        </header>
-
-        <main class="hero-section">
-            <div class="hero-content">
-                <h1 class="fade-in">The Future of Computer Science <span class="highlight">Journal</span> is Coming Soon</h1>
-                <p class="fade-in delay-1">We're crafting an exceptional platform for computer science research, innovations, and discoveries. Stay tuned for the launch of a revolutionary academic journal experience.</p>
-                
-                <div class="countdown-container fade-in delay-2">
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="days">00</span>
-                        <span class="countdown-label">Days</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="hours">00</span>
-                        <span class="countdown-label">Hours</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="minutes">00</span>
-                        <span class="countdown-label">Minutes</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="seconds">00</span>
-                        <span class="countdown-label">Seconds</span>
-                    </div>
-                </div>
-
-                <div class="subscription-form fade-in delay-3">
-                    <h3 class="form-title">Get Notified When We Launch</h3>
-                    <form id="subscribe-form">
-                        <div class="form-group">
-                            <input type="email" class="form-input" placeholder="Enter your email address" required>
-                            <button type="submit" class="form-btn">Notify Me <i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </form>
-                </div>
+            <div class="journal-card animate-on-scroll">
+                <h3>IEEE Transactions on Pattern Analysis</h3>
+                <p>Publishes research on computer vision, image processing, and pattern recognition.</p>
             </div>
-
-            <div class="journal-image fade-in delay-4">
-                <img src="https://i.ibb.co/gLskHGjn/Screenshot-2025-12-05-181738.png" alt="CSJournal Preview">
+            <div class="journal-card animate-on-scroll">
+                <h3>Journal of Machine Learning Research</h3>
+                <p>Leading journal in machine learning, featuring theoretical and applied research.</p>
             </div>
-
-            <div class="social-links fade-in">
-                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-researchgate"></i></a>
+            <div class="journal-card animate-on-scroll">
+                <h3>ACM Computing Surveys</h3>
+                <p>Authoritative surveys of contemporary computing literature and research.</p>
             </div>
-        </main>
+            <div class="journal-card animate-on-scroll">
+                <h3>Artificial Intelligence Journal</h3>
+                <p>Publishes research on the theory and practice of artificial intelligence.</p>
+            </div>
+            <div class="journal-card animate-on-scroll">
+                <h3>IEEE Security & Privacy</h3>
+                <p>Leading publication on cybersecurity, privacy, and trust in digital systems.</p>
+            </div>
+        </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2025 CSJournal. All rights reserved. | Computer Science Research Publications</p>
-        </footer>
-    </div>
-
-    <div class="notification" id="notification">
-        Thank you for subscribing! We'll notify you when CSJournal launches.
-    </div>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="subject-buttons" style="justify-content: center; margin-bottom: 2rem;">
+            <a href="https://youtube.com" target="_blank" class="subject-btn" style="width: 140px;">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+            <a href="#" class="subject-btn" style="width: 140px;">
+                <i class="fas fa-newspaper"></i>
+                <span>Latest Issue</span>
+            </a>
+            <a href="#" class="subject-btn" style="width: 140px;">
+                <i class="fas fa-graduation-cap"></i>
+                <span>For Authors</span>
+            </a>
+        </div>
+        
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">Advancing Computer Science Through Scholarly Excellence</p>
+        <div class="copyright">
+            &copy; 2023 CS Journal. All Rights Reserved. | ISSN: 1234-5678 | csjournal.in
+        </div>
+    </footer>
 
     <script>
-        // Countdown Timer
-        function updateCountdown() {
-            // Set launch date (3 months from now)
-            const launchDate = new Date();
-            launchDate.setMonth(launchDate.getMonth() + 3);
+        // Create floating letters
+        function createFloatingLetters() {
+            const container = document.getElementById('floatingLetters');
+            const letters = 'CSJOURNALCOMPUTERSCIENCE';
             
-            const now = new Date().getTime();
-            const timeLeft = launchDate - now;
-            
-            // Calculate days, hours, minutes, seconds
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            
-            // Update the countdown display
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            
-            // If the countdown is over
-            if (timeLeft < 0) {
-                clearInterval(countdownInterval);
-                document.querySelector('.countdown-container').innerHTML = "<h2>CSJournal is now live!</h2>";
+            for (let i = 0; i < 40; i++) {
+                const letter = document.createElement('div');
+                letter.className = 'letter';
+                letter.textContent = letters[Math.floor(Math.random() * letters.length)];
+                letter.style.left = `${Math.random() * 100}%`;
+                letter.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
+                letter.style.animationDuration = `${Math.random() * 20 + 15}s`;
+                letter.style.animationDelay = `${Math.random() * 5}s`;
+                letter.style.opacity = Math.random() * 0.2 + 0.1;
+                container.appendChild(letter);
             }
         }
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
         
-        // Initialize countdown
-        updateCountdown();
-        const countdownInterval = setInterval(updateCountdown, 1000);
-        
-        // Subscription form handling
-        document.getElementById('subscribe-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const emailInput = this.querySelector('.form-input');
-            const email = emailInput.value;
-            
-            // Basic email validation
-            if (!email || !email.includes('@')) {
-                showNotification('Please enter a valid email address.', 'error');
-                return;
-            }
-            
-            // In a real application, you would send this to a server
-            console.log('Subscription email:', email);
-            
-            // Show success message
-            showNotification('Thank you for subscribing! We\'ll notify you when CSJournal launches.');
-            
-            // Reset form
-            emailInput.value = '';
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
         });
-        
-        // Notification function
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Subject button functionality
+        function showSubject(subject) {
+            const subjects = {
+                'cs': 'Computer Science',
+                'ds': 'Data Science', 
+                'ai': 'Artificial Intelligence',
+                'cyber': 'Cybersecurity'
+            };
             
-            // Set notification text and color
-            notification.textContent = message;
-            notification.style.background = type === 'error' ? '#e74c3c' : '#2ecc71';
+            alert(`Loading content for ${subjects[subject]}...\nThis would normally redirect to the subject page.`);
             
-            // Show notification
-            notification.classList.add('show');
-            
-            // Hide notification after 5 seconds
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 5000);
+            // In a real implementation, this would redirect to subject pages
+            // window.location.href = `/subjects/${subject}`;
         }
-        
-        // Add animation to elements when they come into view
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
+
+        // Scroll animation
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('animated');
                 }
             });
-        }, observerOptions);
-        
-        // Observe elements for animation
-        document.querySelectorAll('.countdown-item, .subscription-form, .journal-image, .social-links').forEach(el => {
-            observer.observe(el);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
+
+        // Adjust header padding based on scroll
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+            
+            // Trigger scroll animations
+            animateOnScroll();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingLetters();
+            animateOnScroll();
+            
+            // Add hover effect to subject buttons
+            document.querySelectorAll('.subject-btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('i');
+                    icon.style.transform = 'scale(1.2)';
+                    icon.style.transition = 'transform 0.3s ease';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('i');
+                    icon.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Adjust hero section padding for mobile
+            function adjustHeroPadding() {
+                const hero = document.querySelector('.hero');
+                const headerHeight = document.querySelector('header').offsetHeight;
+                
+                if (window.innerWidth <= 768) {
+                    hero.style.paddingTop = `${headerHeight + 20}px`;
+                } else {
+                    hero.style.paddingTop = '80px';
+                }
+            }
+            
+            adjustHeroPadding();
+            window.addEventListener('resize', adjustHeroPadding);
+        });
+
+        // Listen for scroll events
+        window.addEventListener('scroll', animateOnScroll);
     </script>
 </body>
 </html>
