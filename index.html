@@ -207,82 +207,77 @@
             transform: scale(1.2);
         }
 
-        /* Founder Section */
-        .founder-section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+       /* Optimized Founder Section for Mobile */
+.founder-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        .founder-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 40px;
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 40px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 204, 0, 0.2);
-        }
+.founder-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows stacking on mobile */
+    align-items: center;
+    gap: 40px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 204, 0, 0.2);
+}
 
-        .founder-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
+.founder-image {
+    flex: 1;
+    min-width: 250px; /* Reduced for small screens */
+    text-align: center;
+}
 
-        .founder-img {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--accent-color);
-            box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
-        }
+.founder-img {
+    width: 100%;
+    max-width: 280px; /* Limits size on desktop */
+    aspect-ratio: 1 / 1; /* Keeps it circular */
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--accent-color);
+    box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
+}
 
-        .founder-info {
-            flex: 2;
-            min-width: 300px;
-        }
+.founder-info {
+    flex: 2;
+    min-width: 280px; /* Prevents text from becoming too narrow */
+}
 
-        .founder-name {
-            font-size: 2.2rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
+/* Specific Mobile Fixes */
+@media (max-width: 992px) {
+    .founder-container {
+        flex-direction: column; /* Stacks image on top of text */
+        text-align: center;
+        padding: 30px 20px;
+    }
 
-        .founder-title {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-style: italic;
-        }
+    .founder-vision h3::after {
+        left: 50%;
+        transform: translateX(-50%); /* Centers the yellow line */
+    }
+    
+    .founder-info {
+        text-align: center;
+    }
 
-        .founder-vision h3 {
-            font-size: 1.8rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            position: relative;
-            padding-bottom: 10px;
-        }
+    .founder-vision p {
+        text-align: justify; /* Keeps paragraphs neat but centered contextually */
+        font-size: 1rem;
+    }
+}
 
-        .founder-vision h3::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 4px;
-            background-color: var(--accent-color);
-            bottom: 0;
-            left: 0;
-            border-radius: 2px;
-        }
-
-        .founder-vision p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
+@media (max-width: 480px) {
+    .founder-img {
+        max-width: 200px; /* Smaller image for very small phones */
+    }
+    .founder-name {
+        font-size: 1.6rem;
+    }
+}
 
         /* Introduction Video */
         .video-container {
@@ -836,6 +831,7 @@
             </div>
         </div>
     </section>
+    
 <!-- Founder's Vision Section -->
     <section class="founder-section" id="founder">
         <h2 class="section-title">Founder's Vision</h2>
@@ -860,6 +856,7 @@
             </div>
         </div>
     </section>
+    
     <!-- Footer -->
     <footer id="contact">
         <div class="footer-content">
