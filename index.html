@@ -3,827 +3,1053 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS Journal - Academic Excellence</title>
+    <title>CSJournal.in - Computer Science Research Portal</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Favicon with atom icon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%235c6bc0' opacity='0.8'/><circle cx='50' cy='50' r='20' fill='%23ffd700'/><circle cx='30' cy='30' r='8' fill='%235c6bc0'/><circle cx='70' cy='30' r='8' fill='%235c6bc0'/><circle cx='30' cy='70' r='8' fill='%235c6bc0'/><circle cx='70' cy='70' r='8' fill='%235c6bc0'/></svg>">
     <style>
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --accent-color: #ffcc00;
+            --text-color: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --card-bg: #2d2d2d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Times New Roman', Times, serif;
         }
 
-        :root {
-            --primary-color: #1a237e;
-            --secondary-color: #283593;
-            --accent-color: #5c6bc0;
-            --gold-color: #ffd700;
-            --light-color: #f5f5f5;
-            --dark-color: #121212;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--dark-color);
-            color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(90, 120, 220, 0.1) 0%, transparent 20%);
         }
 
-        /* Typography Animations */
-        @keyframes floatUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes letterGlow {
-            0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(92, 107, 192, 0.8), 0 0 30px rgba(92, 107, 192, 0.4); }
-        }
-
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        /* Header Styles - Fixed with proper spacing */
+        /* Header & Navigation */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 5%;
+            background-color: var(--secondary-bg);
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            background-color: rgba(18, 18, 18, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(92, 107, 192, 0.3);
-            animation: floatUp 1s ease-out;
+            box-shadow: var(--shadow);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            height: 50px;
+            gap: 10px;
         }
 
         .logo-img {
-            height: 100%;
-            max-width: 200px;
-            object-fit: contain;
-            filter: brightness(1.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
         }
 
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
+        .logo-text {
             font-size: 1.8rem;
-            color: white;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
             cursor: pointer;
             background: none;
             border: none;
-            z-index: 1001;
+            padding: 5px;
         }
 
-        /* Navigation */
-        nav ul {
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 3px 0;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-links {
             display: flex;
             list-style: none;
+            gap: 30px;
         }
 
-        nav li {
-            margin-left: 2rem;
-            position: relative;
-        }
-
-        nav a {
-            color: var(--light-color);
+        .nav-links li a {
+            color: var(--text-color);
             text-decoration: none;
+            font-weight: 600;
             font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            padding: 5px 0;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
-        nav a:hover {
-            color: var(--gold-color);
+        .nav-links li a:hover {
+            color: var(--accent-color);
+            background-color: rgba(255, 204, 0, 0.1);
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--gold-color), var(--accent-color));
-            transition: width 0.5s ease;
-        }
-
-        nav a:hover::after {
+        /* Banner with Image Transition */
+        .banner {
             width: 100%;
-        }
-
-        /* Hero Section with adjusted spacing for fixed header */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 80px 5% 5%;
+            height: 400px;
             position: relative;
             overflow: hidden;
+            margin-bottom: 40px;
         }
 
-        .hero::before {
-            content: '';
+        .banner-slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(28, 58, 173, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(90, 120, 220, 0.1) 0%, transparent 50%);
-            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            animation: floatUp 1.5s ease-out 0.5s both;
-            position: relative;
+        .banner-slide.active {
+            opacity: 1;
         }
 
-        .hero h1 .typewriter {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid var(--gold-color);
-            animation: typewriter 3s steps(30) 1s 1 normal both,
-                       blink-caret 0.75s step-end infinite;
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--gold-color); }
-        }
-
-        .hero h1 .journal-text {
-            color: var(--gold-color);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-            animation: floatUp 1.5s ease-out 1s both;
-            color: #ccc;
-        }
-
-        /* Subject Buttons */
-        .subject-buttons {
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.5));
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
-            animation: floatUp 1.5s ease-out 1.2s both;
+            align-items: center;
+            padding: 0 40px;
         }
 
-        .subject-btn {
+        .banner-content {
+            max-width: 600px;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .banner-content h1 {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-content p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .banner-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 120px;
-            height: 120px;
-            background: rgba(30, 30, 40, 0.8);
-            border-radius: 10px;
-            border: 2px solid rgba(92, 107, 192, 0.3);
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 1rem;
-        }
-
-        .subject-btn:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 20px rgba(28, 58, 173, 0.3);
-            background: rgba(40, 40, 50, 0.9);
-        }
-
-        .subject-btn i {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-            color: var(--gold-color);
-        }
-
-        .subject-btn span {
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        /* CTA Button */
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
             gap: 10px;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border-radius: 50px;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            animation: floatUp 1.5s ease-out 1.5s both;
-            border: 2px solid rgba(92, 107, 192, 0.5);
-            position: relative;
-            overflow: hidden;
-            margin-top: 1rem;
+            z-index: 10;
         }
 
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(28, 58, 173, 0.4);
-            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+        .banner-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.7s;
+        .banner-indicator.active {
+            background-color: var(--accent-color);
+            transform: scale(1.2);
         }
 
-        .cta-button:hover::after {
-            left: 100%;
-        }
-
-        /* YouTube Video Section */
-        .video-section {
-            padding: 4rem 5%;
-            max-width: 1000px;
-            margin: 0 auto;
-            animation: floatUp 1s ease-out both;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(92, 107, 192, 0.3);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Top Journals List */
-        .journals-section {
-            padding: 4rem 5%;
+        /* Founder Section */
+        .founder-section {
+            padding: 60px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .journals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .founder-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 204, 0, 0.2);
         }
 
-        .journal-card {
-            background: rgba(30, 30, 40, 0.8);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(92, 107, 192, 0.2);
-            animation: floatUp 1s ease-out both;
+        .founder-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
         }
 
-        .journal-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 20px rgba(28, 58, 173, 0.2);
+        .founder-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent-color);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
         }
 
-        .journal-card h3 {
-            color: var(--gold-color);
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+        .founder-info {
+            flex: 2;
+            min-width: 300px;
         }
 
-        .journal-card p {
-            color: #ccc;
-            font-size: 0.95rem;
-            line-height: 1.5;
+        .founder-name {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
         }
 
-        /* Floating letters background */
-        .floating-letters {
+        .founder-title {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .founder-vision h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .founder-vision h3::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .founder-vision p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Introduction Video */
+        .video-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--accent-color);
+        }
+
+        .video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            z-index: -2;
-            pointer-events: none;
         }
 
-        .letter {
-            position: absolute;
-            font-size: 1.8rem;
-            color: rgba(92, 107, 192, 0.1);
-            font-weight: bold;
-            user-select: none;
-            animation: floatAround 20s infinite linear;
-        }
-
-        @keyframes floatAround {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
-        }
-
-        /* Content Sections */
-        section {
-            padding: 5rem 5%;
+        /* Chapters Section */
+        .chapters-section {
+            padding: 40px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-title {
-            font-size: 2.5rem;
             text-align: center;
-            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--accent-color);
             position: relative;
-            padding-bottom: 1rem;
-            animation: floatUp 1s ease-out both;
+            padding-bottom: 15px;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-color);
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .chapter-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(255, 204, 0, 0.2);
+        }
+
+        .chapter-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .chapter-content {
+            padding: 20px;
+        }
+
+        .chapter-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .chapter-content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* Research Articles */
+        .articles-section {
+            padding: 40px 20px;
+            background-color: var(--secondary-bg);
+            border-top: 1px solid rgba(255, 204, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .article-content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
 
         /* Footer */
         footer {
-            background-color: rgba(10, 10, 15, 0.95);
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(92, 107, 192, 0.3);
-            margin-top: 4rem;
+            background-color: var(--secondary-bg);
+            padding: 50px 20px 20px;
+            border-top: 2px solid var(--accent-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            max-width: 300px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            color: var(--accent-color);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-5px);
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info i {
+            color: var(--accent-color);
+            width: 20px;
         }
 
         .copyright {
-            color: #aaa;
-            font-size: 1.1rem;
-            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* Mobile Responsive Design */
+        /* Responsive Design */
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
+            .banner-content h1 {
+                font-size: 2.5rem;
             }
             
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            nav ul {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: rgba(18, 18, 18, 0.98);
+            .founder-container {
                 flex-direction: column;
-                padding: 2rem;
-                z-index: 1000;
-                border-top: 1px solid rgba(92, 107, 192, 0.3);
+                text-align: center;
             }
             
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav li {
-                margin: 1rem 0;
-                margin-left: 0;
-            }
-            
-            .subject-buttons {
-                gap: 1rem;
-            }
-            
-            .subject-btn {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .subject-btn i {
-                font-size: 2rem;
+            .founder-vision h3::after {
+                left: 50%;
+                transform: translateX(-50%);
             }
         }
 
         @media (max-width: 768px) {
-            .hero {
-                padding-top: 100px;
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--secondary-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: var(--transition);
+                gap: 0;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 15px;
+                font-size: 1.3rem;
+            }
+
+            .banner {
+                height: 350px;
             }
             
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
+            .banner-content h1 {
                 font-size: 2rem;
             }
             
-            .journals-grid {
+            .banner-overlay {
+                padding: 0 20px;
+            }
+            
+            .founder-name {
+                font-size: 1.8rem;
+            }
+            
+            .founder-img {
+                width: 220px;
+                height: 220px;
+            }
+
+            .chapters-grid, .articles-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .subject-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            .subject-btn {
-                width: 90px;
-                height: 90px;
-            }
-            
-            .subject-btn i {
+
+            .section-title {
                 font-size: 1.8rem;
             }
             
-            .subject-btn span {
-                font-size: 1rem;
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
         }
 
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .logo-img {
-                max-width: 150px;
-            }
-            
-            .subject-buttons {
-                gap: 0.8rem;
-            }
-            
-            .subject-btn {
-                width: 80px;
-                height: 80px;
-                padding: 0.8rem;
-            }
-            
-            .subject-btn i {
-                font-size: 1.5rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .subject-btn span {
-                font-size: 0.9rem;
-            }
-            
-            .cta-button {
-                padding: 0.8rem 2rem;
-                font-size: 1.1rem;
-            }
+        /* Animation for cards */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* Scroll animation classes */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+        .chapter-card, .article-card {
+            animation: fadeIn 0.5s ease-out forwards;
         }
-
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header with Logo -->
+    <!-- Header with Hamburger Menu -->
     <header>
         <div class="logo-container">
-            <img src="https://i.ibb.co/tMJhGZKd/Smart-Select-20251211-223501-Canva.jpg" alt="CS Journal Logo" class="logo-img">
+            <img src="https://i.ibb.co/F45LhM4d/upi-qr.png" alt="CSJournal Logo" class="logo-img">
+            <div class="logo-text">CSJournal.in</div>
         </div>
         
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
         
         <nav>
-            <ul id="navMenu">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#journals">Top Journals</a></li>
-                <li><a href="#subjects">Subjects</a></li>
-                <li><a href="#video">Introduction</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#founder">Founder's Vision</a></li>
+                <li><a href="#chapters">Chapters</a></li>
+                <li><a href="#articles">Research Articles</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="floating-letters" id="floatingLetters"></div>
-        <h1>
-            <span class="typewriter">CS Journal: </span>
-            <span class="journal-text">Advancing Computer Science Research</span>
-        </h1>
-        <p>A premier platform for publishing cutting-edge research in computer science, artificial intelligence, data science, and computational theory.</p>
+    <!-- Banner with Image Transitions -->
+    <section class="banner" id="home">
+        <div class="banner-slide active" style="background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
+        <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
+        <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')"></div>
         
-        <!-- Subject Buttons -->
-        <div class="subject-buttons" id="subjects">
-            <a href="#" class="subject-btn" onclick="showSubject('cs')">
-                <i class="fas fa-laptop-code"></i>
-                <span>Computer Science</span>
-            </a>
-            <a href="#" class="subject-btn" onclick="showSubject('ds')">
-                <i class="fas fa-chart-bar"></i>
-                <span>Data Science</span>
-            </a>
-            <a href="#" class="subject-btn" onclick="showSubject('ai')">
-                <i class="fas fa-robot"></i>
-                <span>AI & ML</span>
-            </a>
-            <a href="#" class="subject-btn" onclick="showSubject('cyber')">
-                <i class="fas fa-shield-alt"></i>
-                <span>Cybersecurity</span>
-            </a>
+        <div class="banner-overlay">
+            <div class="banner-content">
+                <h1>Advancing Computer Science Research</h1>
+                <p>Explore cutting-edge research, tutorials, and resources in algorithms, AI, cybersecurity, and emerging technologies.</p>
+                <a href="#chapters" class="btn">Get Started</a>
+            </div>
         </div>
         
-        <a href="#submissions" class="cta-button">
-            Submit Your Research
-            <i class="fas fa-arrow-right"></i>
-        </a>
-    </section>
-
-    <!-- YouTube Video Section -->
-    <section class="video-section" id="video">
-        <h2 class="section-title">Journal Introduction</h2>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/b5N9lLwLyyA" 
-                    title="CS Journal Introduction" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-            </iframe>
+        <div class="banner-indicators">
+            <div class="banner-indicator active" data-slide="0"></div>
+            <div class="banner-indicator" data-slide="1"></div>
+            <div class="banner-indicator" data-slide="2"></div>
         </div>
-        <p style="text-align: center; margin-top: 1.5rem; color: #ccc; font-size: 1.1rem;">
-            Watch our introduction video to learn more about CS Journal's mission and scope
-        </p>
     </section>
 
-    <!-- Top Journals List -->
-    <section class="journals-section" id="journals">
-        <h2 class="section-title">Top Computer Science Journals</h2>
-        <div class="journals-grid">
-            <div class="journal-card animate-on-scroll">
-                <h3>Communications of the ACM</h3>
-                <p>The premier monthly journal for computing and information technology professionals.</p>
+    <!-- Founder's Vision Section -->
+    <section class="founder-section" id="founder">
+        <h2 class="section-title">Founder's Vision</h2>
+        <div class="founder-container">
+            <div class="founder-image">
+                <img src="https://i.ibb.co/4RQHRMm0/fg.png" alt="Sumit Haldar" class="founder-img">
             </div>
-            <div class="journal-card animate-on-scroll">
-                <h3>IEEE Transactions on Pattern Analysis</h3>
-                <p>Publishes research on computer vision, image processing, and pattern recognition.</p>
+            <div class="founder-info">
+                <h2 class="founder-name">Sumit Haldar</h2>
+                <p class="founder-title">Founder & Chief Editor, CSJournal.in</p>
+                
+                <div class="founder-vision">
+                    <h3>Vision for CSJournal.in</h3>
+                    <p>At CSJournal.in, our mission is to democratize computer science knowledge and make cutting-edge research accessible to everyone. In today's fast-paced technological landscape, staying updated with the latest advancements is not just an advantage—it's a necessity.</p>
+                    
+                    <p>I founded CSJournal.in with a vision to create a centralized platform where students, researchers, and industry professionals can access high-quality, peer-reviewed content across all domains of computer science. We aim to bridge the gap between complex academic research and practical implementation.</p>
+                    
+                    <p>Our platform is built on three core principles: Accessibility, Quality, and Innovation. We believe that knowledge should be freely available, meticulously curated, and forward-thinking. Whether you're exploring quantum computing algorithms or the latest developments in machine learning, CSJournal.in is your trusted companion in the journey of technological discovery.</p>
+                    
+                    <p>Join us as we build a community of learners and innovators shaping the future of technology, one research paper at a time.</p>
+                </div>
             </div>
-            <div class="journal-card animate-on-scroll">
-                <h3>Journal of Machine Learning Research</h3>
-                <p>Leading journal in machine learning, featuring theoretical and applied research.</p>
+        </div>
+    </section>
+
+    <!-- Introduction Video -->
+    <section class="video-container">
+        <h2 class="section-title">Introduction to CSJournal</h2>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/nzZq7qtYHVM?si=owLXXBO9RX9CHpB_" title="CSJournal Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Chapters Section -->
+    <section class="chapters-section" id="chapters">
+        <h2 class="section-title">Explore CS Chapters</h2>
+        <div class="chapters-grid">
+            <!-- Chapter 1 -->
+            <div class="chapter-card">
+                <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Algorithms" class="chapter-img">
+                <div class="chapter-content">
+                    <h3>Algorithms & Data Structures</h3>
+                    <p>Master fundamental algorithms and data structures that form the backbone of computer science.</p>
+                    <a href="#" class="btn">Explore Chapter</a>
+                </div>
             </div>
-            <div class="journal-card animate-on-scroll">
-                <h3>ACM Computing Surveys</h3>
-                <p>Authoritative surveys of contemporary computing literature and research.</p>
+            
+            <!-- Chapter 2 -->
+            <div class="chapter-card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="AI & ML" class="chapter-img">
+                <div class="chapter-content">
+                    <h3>Artificial Intelligence</h3>
+                    <p>Explore machine learning, neural networks, and AI applications transforming the digital landscape.</p>
+                    <a href="#" class="btn">Explore Chapter</a>
+                </div>
             </div>
-            <div class="journal-card animate-on-scroll">
-                <h3>Artificial Intelligence Journal</h3>
-                <p>Publishes research on the theory and practice of artificial intelligence.</p>
+            
+            <!-- Chapter 3 -->
+            <div class="chapter-card">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cybersecurity" class="chapter-img">
+                <div class="chapter-content">
+                    <h3>Cybersecurity</h3>
+                    <p>Learn about network security, cryptography, and ethical hacking to protect digital assets.</p>
+                    <a href="#" class="btn">Explore Chapter</a>
+                </div>
             </div>
-            <div class="journal-card animate-on-scroll">
-                <h3>IEEE Security & Privacy</h3>
-                <p>Leading publication on cybersecurity, privacy, and trust in digital systems.</p>
+            
+            <!-- Chapter 4 -->
+            <div class="chapter-card">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Web Development" class="chapter-img">
+                <div class="chapter-content">
+                    <h3>Web Development</h3>
+                    <p>Modern web technologies, frameworks, and best practices for building responsive applications.</p>
+                    <a href="#" class="btn">Explore Chapter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Articles Section -->
+    <section class="articles-section" id="articles">
+        <h2 class="section-title">Latest Research Articles</h2>
+        <div class="articles-grid">
+            <!-- Article 1 -->
+            <div class="article-card">
+                <div class="article-content">
+                    <h3>Quantum Computing Advances</h3>
+                    <p>Exploring the latest breakthroughs in quantum algorithms and their potential impact on cryptography and optimization problems.</p>
+                    <a href="https://arxiv.org/" target="_blank" class="btn">Read on arXiv</a>
+                </div>
+            </div>
+            
+            <!-- Article 2 -->
+            <div class="article-card">
+                <div class="article-content">
+                    <h3>Neural Architecture Search</h3>
+                    <p>Automated machine learning techniques for designing optimal neural network architectures without human intervention.</p>
+                    <a href="https://www.sciencedirect.com/" target="_blank" class="btn">Read on ScienceDirect</a>
+                </div>
+            </div>
+            
+            <!-- Article 3 -->
+            <div class="article-card">
+                <div class="article-content">
+                    <h3>Blockchain Scalability Solutions</h3>
+                    <p>Novel approaches to improving transaction throughput and reducing energy consumption in distributed ledgers.</p>
+                    <a href="https://ieeexplore.ieee.org/" target="_blank" class="btn">Read on IEEE</a>
+                </div>
+            </div>
+            
+            <!-- Article 4 -->
+            <div class="article-card">
+                <div class="article-content">
+                    <h3>Edge Computing for IoT</h3>
+                    <p>Distributed computing paradigms that bring computation and data storage closer to IoT devices.</p>
+                    <a href="https://dl.acm.org/" target="_blank" class="btn">Read on ACM</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer id="contact">
-        <div class="subject-buttons" style="justify-content: center; margin-bottom: 2rem;">
-            <a href="https://youtube.com" target="_blank" class="subject-btn" style="width: 140px;">
-                <i class="fab fa-youtube"></i>
-                <span>YouTube</span>
-            </a>
-            <a href="#" class="subject-btn" style="width: 140px;">
-                <i class="fas fa-newspaper"></i>
-                <span>Latest Issue</span>
-            </a>
-            <a href="#" class="subject-btn" style="width: 140px;">
-                <i class="fas fa-graduation-cap"></i>
-                <span>For Authors</span>
-            </a>
+        <div class="footer-content">
+            <div class="footer-logo-section">
+                <div class="footer-logo">
+                    <img src="https://i.ibb.co/F45LhM4d/upi-qr.png" alt="CSJournal Logo" class="footer-logo-img">
+                    CSJournal.in
+                </div>
+                <p class="footer-text">A comprehensive platform for computer science research, education, and innovation. Stay updated with the latest trends and breakthroughs in technology.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Important Links</h3>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#founder"><i class="fas fa-chevron-right"></i> Founder's Vision</a></li>
+                    <li><a href="#chapters"><i class="fas fa-chevron-right"></i> CS Chapters</a></li>
+                    <li><a href="#articles"><i class="fas fa-chevron-right"></i> Research Articles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Submit Research</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Become a Contributor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Kolkata, West Bengal, India</p>
+                    <p><i class="fas fa-envelope"></i> contact@csjournal.in</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-globe"></i> www.csjournal.in</p>
+                </div>
+            </div>
         </div>
         
-        <p style="font-size: 1.2rem; margin-bottom: 1rem;">Advancing Computer Science Through Scholarly Excellence</p>
-        <div class="copyright">
-            &copy; 2023 CS Journal. All Rights Reserved. | ISSN: 1234-5678 | csjournal.in
-        </div>
+        <p class="copyright">&copy; 2023 CSJournal.in. All rights reserved. | Designed for researchers, developers, and tech enthusiasts</p>
     </footer>
 
     <script>
-        // Create floating letters
-        function createFloatingLetters() {
-            const container = document.getElementById('floatingLetters');
-            const letters = 'CSJOURNALCOMPUTERSCIENCE';
-            
-            for (let i = 0; i < 40; i++) {
-                const letter = document.createElement('div');
-                letter.className = 'letter';
-                letter.textContent = letters[Math.floor(Math.random() * letters.length)];
-                letter.style.left = `${Math.random() * 100}%`;
-                letter.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
-                letter.style.animationDuration = `${Math.random() * 20 + 15}s`;
-                letter.style.animationDelay = `${Math.random() * 5}s`;
-                letter.style.opacity = Math.random() * 0.2 + 0.1;
-                container.appendChild(letter);
-            }
-        }
-
-        // Mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
+        // Mobile Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
         
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            // Animate hamburger to X
+            const spans = hamburger.querySelectorAll('span');
+            if (navLinks.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
         });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('nav a').forEach(link => {
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                
+                // Reset hamburger animation
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
             });
         });
-
-        // Subject button functionality
-        function showSubject(subject) {
-            const subjects = {
-                'cs': 'Computer Science',
-                'ds': 'Data Science', 
-                'ai': 'Artificial Intelligence',
-                'cyber': 'Cybersecurity'
-            };
+        
+        // Banner Image Transition
+        const bannerSlides = document.querySelectorAll('.banner-slide');
+        const bannerIndicators = document.querySelectorAll('.banner-indicator');
+        let currentSlide = 0;
+        const totalSlides = bannerSlides.length;
+        
+        function showSlide(index) {
+            // Remove active class from all slides and indicators
+            bannerSlides.forEach(slide => slide.classList.remove('active'));
+            bannerIndicators.forEach(indicator => indicator.classList.remove('active'));
             
-            alert(`Loading content for ${subjects[subject]}...\nThis would normally redirect to the subject page.`);
-            
-            // In a real implementation, this would redirect to subject pages
-            // window.location.href = `/subjects/${subject}`;
+            // Add active class to current slide and indicator
+            bannerSlides[index].classList.add('active');
+            bannerIndicators[index].classList.add('active');
+            currentSlide = index;
         }
-
-        // Scroll animation
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.animate-on-scroll');
+        
+        // Auto slide every 5 seconds
+        function autoSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+        
+        // Set up auto slide
+        let slideInterval = setInterval(autoSlide, 5000);
+        
+        // Add click event to indicators
+        bannerIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                showSlide(index);
+                slideInterval = setInterval(autoSlide, 5000);
+            });
+        });
+        
+        // Pause auto slide on hover
+        const banner = document.querySelector('.banner');
+        banner.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        banner.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(autoSlide, 5000);
+        });
+        
+        // Add hover animation to cards
+        document.querySelectorAll('.chapter-card, .article-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
             
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('animated');
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.5)';
+                header.style.padding = '10px 20px';
+            } else {
+                header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
+                header.style.padding = '15px 20px';
+            }
+        });
+        
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }
-
-        // Smooth scrolling for anchor links
+        }, observerOptions);
+        
+        // Observe elements to animate
+        document.querySelectorAll('.chapter-card, .article-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+        
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+                if(targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Close mobile menu if open
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                    
+                if(targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 70,
                         behavior: 'smooth'
                     });
                 }
             });
         });
-
-        // Adjust header padding based on scroll
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // Scrolling down
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                // Scrolling up
-                header.style.transform = 'translateY(0)';
-            }
-            
-            lastScrollTop = scrollTop;
-            
-            // Trigger scroll animations
-            animateOnScroll();
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            createFloatingLetters();
-            animateOnScroll();
-            
-            // Add hover effect to subject buttons
-            document.querySelectorAll('.subject-btn').forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('i');
-                    icon.style.transform = 'scale(1.2)';
-                    icon.style.transition = 'transform 0.3s ease';
-                });
-                
-                btn.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('i');
-                    icon.style.transform = 'scale(1)';
-                });
-            });
-            
-            // Adjust hero section padding for mobile
-            function adjustHeroPadding() {
-                const hero = document.querySelector('.hero');
-                const headerHeight = document.querySelector('header').offsetHeight;
-                
-                if (window.innerWidth <= 768) {
-                    hero.style.paddingTop = `${headerHeight + 20}px`;
-                } else {
-                    hero.style.paddingTop = '80px';
-                }
-            }
-            
-            adjustHeroPadding();
-            window.addEventListener('resize', adjustHeroPadding);
-        });
-
-        // Listen for scroll events
-        window.addEventListener('scroll', animateOnScroll);
     </script>
 </body>
 </html>
