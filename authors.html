@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authors - CSJournal.in</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --accent-color: #ffcc00;
+            --text-color: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --card-bg: #2d2d2d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header with Become Author Button */
+        .authors-header {
+            background-color: var(--secondary-bg);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .back-home:hover {
+            color: var(--accent-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .become-author-btn {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            border: 2px solid var(--accent-color);
+            white-space: nowrap;
+        }
+
+        .become-author-btn:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* Authors Section */
+        .authors-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .authors-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+        }
+
+        /* Author List */
+        .author-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .author-item {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .author-item:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .author-image {
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .author-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .expertise-tag {
+            background-color: rgba(255, 204, 0, 0.1);
+            color: var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .author-description {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .author-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            max-width: 600px;
+            margin: 40px auto;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .success-message h2 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .success-message p {
+            color: var(--text-color);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .authors-header {
+                padding: 15px;
+            }
+            
+            .logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .become-author-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .authors-title {
+                font-size: 1.8rem;
+            }
+            
+            .author-item {
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .author-image {
+                width: 80px;
+                height: 80px;
+                min-width: 80px;
+            }
+            
+            .author-name {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .authors-header {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .logo-container {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .back-home {
+                order: 2;
+                font-size: 1rem;
+            }
+            
+            .become-author-btn {
+                order: 3;
+                font-size: 0.85rem;
+                padding: 6px 12px;
+            }
+            
+            .author-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .author-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .author-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authors Directory Page -->
+    <div id="authors-directory">
+        <!-- Header with Become Author Button -->
+        <header class="authors-header">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            
+            <div class="logo-container">
+                <img src="https://i.ibb.co/F45LhM4d/upi-qr.png" alt="CSJournal Logo" class="logo-img">
+                <div class="logo-text">CSJournal.in</div>
+            </div>
+            
+            <a href="#apply" class="become-author-btn">
+                <i class="fas fa-user-plus"></i> Become Author
+            </a>
+        </header>
+
+        <!-- Authors List -->
+        <section class="authors-container">
+            <h1 class="authors-title">CSJournal Authors</h1>
+            
+            <div class="author-list">
+                <!-- Author 1 -->
+                <div class="author-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Dr. Arun Sharma" 
+                         class="author-image">
+                    
+                    <div class="author-info">
+                        <h2 class="author-name">Dr. Arun Sharma</h2>
+                        <p class="author-title">Professor of Computer Science, IIT Delhi</p>
+                        
+                        <div class="author-expertise">
+                            <span class="expertise-tag">AI/ML</span>
+                            <span class="expertise-tag">Quantum Computing</span>
+                            <span class="expertise-tag">Algorithms</span>
+                        </div>
+                        
+                        <p class="author-description">
+                            Leading researcher in quantum computing and machine learning with 15+ years of academic experience.
+                        </p>
+                        
+                        <div class="author-actions">
+                            <a href="dr-arun-sharma.html" class="btn btn-primary">
+                                <i class="fas fa-user"></i> View Profile
+                            </a>
+                            <a href="https://csjournal.in/journals/author/dr-arun-sharma" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-book-open"></i> Journals
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Author 2 -->
+                <div class="author-item">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Prof. Priya Mehta" 
+                         class="author-image">
+                    
+                    <div class="author-info">
+                        <h2 class="author-name">Prof. Priya Mehta</h2>
+                        <p class="author-title">Cybersecurity Expert, IIIT Hyderabad</p>
+                        
+                        <div class="author-expertise">
+                            <span class="expertise-tag">Cybersecurity</span>
+                            <span class="expertise-tag">Cryptography</span>
+                            <span class="expertise-tag">Network Security</span>
+                        </div>
+                        
+                        <p class="author-description">
+                            Renowned cybersecurity expert with 12+ years experience in academia and industry.
+                        </p>
+                        
+                        <div class="author-actions">
+                            <a href="prof-priya-mehta.html" class="btn btn-primary">
+                                <i class="fas fa-user"></i> View Profile
+                            </a>
+                            <a href="https://csjournal.in/journals/author/prof-priya-mehta" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-book-open"></i> Journals
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Author 3 -->
+                <div class="author-item">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Dr. Rajesh Kumar" 
+                         class="author-image">
+                    
+                    <div class="author-info">
+                        <h2 class="author-name">Dr. Rajesh Kumar</h2>
+                        <p class="author-title">Data Science Lead, Microsoft Research</p>
+                        
+                        <div class="author-expertise">
+                            <span class="expertise-tag">Data Science</span>
+                            <span class="expertise-tag">Big Data</span>
+                            <span class="expertise-tag">Machine Learning</span>
+                        </div>
+                        
+                        <p class="author-description">
+                            Leads Data Science team at Microsoft Research India. Expert in big data analytics.
+                        </p>
+                        
+                        <div class="author-actions">
+                            <a href="dr-rajesh-kumar.html" class="btn btn-primary">
+                                <i class="fas fa-user"></i> View Profile
+                            </a>
+                            <a href="https://csjournal.in/journals/author/dr-rajesh-kumar" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-book-open"></i> Journals
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Author 4 -->
+                <div class="author-item">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Dr. Ananya Chatterjee" 
+                         class="author-image">
+                    
+                    <div class="author-info">
+                        <h2 class="author-name">Dr. Ananya Chatterjee</h2>
+                        <p class="author-title">Blockchain Researcher, IISC Bangalore</p>
+                        
+                        <div class="author-expertise">
+                            <span class="expertise-tag">Blockchain</span>
+                            <span class="expertise-tag">Web3</span>
+                            <span class="expertise-tag">Smart Contracts</span>
+                        </div>
+                        
+                        <p class="author-description">
+                            Pioneering researcher in blockchain technology and distributed systems.
+                        </p>
+                        
+                        <div class="author-actions">
+                            <a href="dr-ananya-chatterjee.html" class="btn btn-primary">
+                                <i class="fas fa-user"></i> View Profile
+                            </a>
+                            <a href="https://csjournal.in/journals/author/dr-ananya-chatterjee" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-book-open"></i> Journals
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Application Form -->
+    <div id="apply-form" style="display: none; max-width: 600px; margin: 40px auto; padding: 0 20px;">
+        <header class="authors-header">
+            <a href="#authors-directory" class="back-home back-to-authors-btn">
+                <i class="fas fa-arrow-left"></i> Back to Authors
+            </a>
+            
+            <div class="logo-container">
+                <img src="https://i.ibb.co/F45LhM4d/upi-qr.png" alt="CSJournal Logo" class="logo-img">
+                <div class="logo-text">CSJournal.in</div>
+            </div>
+        </header>
+        
+        <div style="background-color: var(--card-bg); padding: 30px; border-radius: var(--border-radius); margin-top: 30px;">
+            <h2 style="color: var(--accent-color); margin-bottom: 20px;">Apply to Become an Author</h2>
+            <p style="color: var(--text-color); margin-bottom: 25px;">Submit your details and we'll get back to you within 48 hours.</p>
+            
+            <form id="author-application">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--text-color); margin-bottom: 8px;">Full Name *</label>
+                    <input type="text" id="applicant-name" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #444; background-color: var(--secondary-bg); color: var(--text-color);">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--text-color); margin-bottom: 8px;">Email Address *</label>
+                    <input type="email" id="applicant-email" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #444; background-color: var(--secondary-bg); color: var(--text-color);">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--text-color); margin-bottom: 8px;">Phone Number</label>
+                    <input type="tel" id="applicant-phone" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #444; background-color: var(--secondary-bg); color: var(--text-color);">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--text-color); margin-bottom: 8px;">Current Position/Title</label>
+                    <input type="text" id="applicant-position" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #444; background-color: var(--secondary-bg); color: var(--text-color);" placeholder="e.g., Professor, Researcher, Engineer">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--text-color); margin-bottom: 8px;">Institution/Organization</label>
+                    <input type="text" id="applicant-institution" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #444; background-color: var(--secondary-bg); color: var(--text-color);" placeholder="e.g., IIT Delhi, Microsoft Research">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: var(--text-color); margin-bottom: 8px;">Area of Expertise *</label>
+                    <input type="text" id="applicant-expertise" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #444; background-color: var(--secondary-bg); color: var(--text-color);" placeholder="e.g., AI/ML, Cybersecurity, Blockchain">
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; color: var(--text-color); margin-bottom: 8px;">Brief Background/Experience</label>
+                    <textarea id="applicant-experience" rows="4" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #444; background-color: var(--secondary-bg); color: var(--text-color); resize: vertical;" placeholder="Tell us about your background and why you want to become a CSJournal author"></textarea>
+                </div>
+                
+                <button type="submit" style="background-color: var(--accent-color); color: var(--primary-bg); padding: 12px 30px; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center;">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="success-message" style="display: none;">
+        <header class="authors-header">
+            <a href="#authors-directory" class="back-home back-to-authors-success">
+                <i class="fas fa-arrow-left"></i> Back to Authors
+            </a>
+            
+            <div class="logo-container">
+                <img src="https://i.ibb.co/F45LhM4d/upi-qr.png" alt="CSJournal Logo" class="logo-img">
+                <div class="logo-text">CSJournal.in</div>
+            </div>
+            
+            <a href="#apply" class="become-author-btn" style="visibility: hidden;">
+                <i class="fas fa-user-plus"></i> Become Author
+            </a>
+        </header>
+        
+        <div class="success-message">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Application Submitted Successfully!</h2>
+            <p>
+                Thank you for applying to become a CSJournal author. Your application has been sent to our team at <strong>mail.csjournal@gmail.com</strong>.
+            </p>
+            <p>
+                <strong>If you have applied, you will receive a response from our team within 48 hours.</strong> We review each application carefully and will get back to you with the next steps.
+            </p>
+            <a href="#authors-directory" class="btn btn-primary back-to-authors-success">
+                <i class="fas fa-arrow-left"></i> Return to Authors
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Handle Become Author button
+        document.querySelectorAll('a[href="#apply"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('authors-directory').style.display = 'none';
+                document.getElementById('apply-form').style.display = 'block';
+                document.getElementById('success-message').style.display = 'none';
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Handle Back to Authors buttons
+        document.querySelectorAll('.back-to-authors-btn, .back-to-authors-success').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('authors-directory').style.display = 'block';
+                document.getElementById('apply-form').style.display = 'none';
+                document.getElementById('success-message').style.display = 'none';
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Handle form submission
+        document.getElementById('author-application').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('applicant-name').value,
+                email: document.getElementById('applicant-email').value,
+                phone: document.getElementById('applicant-phone').value,
+                position: document.getElementById('applicant-position').value,
+                institution: document.getElementById('applicant-institution').value,
+                expertise: document.getElementById('applicant-expertise').value,
+                experience: document.getElementById('applicant-experience').value,
+                timestamp: new Date().toLocaleString(),
+                subject: "Become a Author Application - CSJournal.in"
+            };
+            
+            // Create email body
+            const emailBody = `
+New Author Application Received - CSJournal.in
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Position: ${formData.position}
+Institution: ${formData.institution}
+Area of Expertise: ${formData.expertise}
+
+Background/Experience:
+${formData.experience}
+
+Submitted on: ${formData.timestamp}
+            `.trim();
+            
+            // Create mailto link
+            const email = "mail.csjournal@gmail.com";
+            const subject = encodeURIComponent(formData.subject);
+            const body = encodeURIComponent(emailBody);
+            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message after a short delay (to allow email client to open)
+            setTimeout(() => {
+                document.getElementById('authors-directory').style.display = 'none';
+                document.getElementById('apply-form').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                window.scrollTo(0, 0);
+                
+                // Clear form
+                document.getElementById('author-application').reset();
+            }, 500);
+        });
+
+        // Check URL hash on page load
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            
+            if (hash === '#apply') {
+                document.getElementById('authors-directory').style.display = 'none';
+                document.getElementById('apply-form').style.display = 'block';
+                document.getElementById('success-message').style.display = 'none';
+            } else {
+                document.getElementById('authors-directory').style.display = 'block';
+                document.getElementById('apply-form').style.display = 'none';
+                document.getElementById('success-message').style.display = 'none';
+            }
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash;
+            
+            if (hash === '#apply') {
+                document.getElementById('authors-directory').style.display = 'none';
+                document.getElementById('apply-form').style.display = 'block';
+                document.getElementById('success-message').style.display = 'none';
+            } else {
+                document.getElementById('authors-directory').style.display = 'block';
+                document.getElementById('apply-form').style.display = 'none';
+                document.getElementById('success-message').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
