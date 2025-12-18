@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - CSJournal.in</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --accent-color: #ffcc00;
+            --text-color: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --card-bg: #2d2d2d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .terms-header {
+            background-color: var(--secondary-bg);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .back-home:hover {
+            color: var(--accent-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        /* Terms Container */
+        .terms-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .terms-header-content {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .terms-title {
+            font-size: 2.8rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .terms-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .effective-date {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Terms Content */
+        .terms-content {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .terms-section {
+            margin-bottom: 40px;
+        }
+
+        .terms-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 204, 0, 0.3);
+        }
+
+        .terms-text {
+            color: var(--text-color);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .terms-list {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .terms-list li {
+            margin-bottom: 10px;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .terms-list li strong {
+            color: var(--accent-color);
+        }
+
+        .highlight {
+            background-color: rgba(255, 204, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+        }
+
+        .note-box {
+            background-color: rgba(255, 204, 0, 0.05);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-top: 40px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+
+        .note-box h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .terms-header {
+                padding: 15px;
+            }
+            
+            .logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .terms-title {
+                font-size: 2.2rem;
+            }
+            
+            .terms-content {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terms-header {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .logo-container {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .back-home {
+                order: 2;
+                font-size: 1rem;
+            }
+            
+            .terms-title {
+                font-size: 1.8rem;
+            }
+            
+            .terms-list {
+                margin-left: 15px;
+            }
+        }
+
+        /* Table of Contents */
+        .toc-container {
+            background-color: rgba(255, 204, 0, 0.05);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+
+        .toc-title {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .toc-list {
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+            break-inside: avoid;
+        }
+
+        .toc-list a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+
+        .toc-list a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Terms & Conditions Page -->
+    <header class="terms-header">
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        
+        <div class="logo-container">
+            <img src="https://i.ibb.co/2Y5T4Gwp/Screenshot-2025-12-18-123558.png" alt="CSJournal Logo" class="logo-img">
+            <div class="logo-text">CSJournal.in</div>
+        </div>
+        
+        <div style="width: 100px;"></div> <!-- Spacer for alignment -->
+    </header>
+
+    <main class="terms-container">
+        <div class="terms-header-content">
+            <h1 class="terms-title">Terms & Conditions</h1>
+            <p class="terms-subtitle">Please read these terms carefully before using our website</p>
+            <p class="effective-date">Effective Date: December 1, 2025</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc-container">
+            <h3 class="toc-title">Table of Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#acceptance">1. Acceptance of Terms</a></li>
+                <li><a href="#intellectual">2. Intellectual Property Rights</a></li>
+                <li><a href="#user-content">3. User Content</a></li>
+                <li><a href="#author-application">4. Author Application Process</a></li>
+                <li><a href="#prohibited">5. Prohibited Activities</a></li>
+                <li><a href="#third-party">6. Third-Party Links</a></li>
+                <li><a href="#termination">7. Termination</a></li>
+                <li><a href="#disclaimer">8. Disclaimer of Warranties</a></li>
+                <li><a href="#limitation">9. Limitation of Liability</a></li>
+                <li><a href="#indemnification">10. Indemnification</a></li>
+                <li><a href="#governing">11. Governing Law</a></li>
+                <li><a href="#changes">12. Changes to Terms</a></li>
+                <li><a href="#contact">13. Contact Information</a></li>
+            </ul>
+        </div>
+
+        <div class="terms-content">
+            <div class="terms-section" id="acceptance">
+                <h2 class="section-title">1. Acceptance of Terms</h2>
+                <p class="terms-text">
+                    By accessing and using CSJournal.in ("the Website"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these terms, please do not use this website.
+                </p>
+                <p class="terms-text">
+                    We reserve the right to modify these terms at any time without prior notice. Your continued use of the Website after any such changes constitutes your acceptance of the new Terms & Conditions.
+                </p>
+            </div>
+
+            <div class="terms-section" id="intellectual">
+                <h2 class="section-title">2. Intellectual Property Rights</h2>
+                <p class="terms-text">
+                    Unless otherwise stated, CSJournal.in and/or its licensors own the intellectual property rights for all material on CSJournal.in. All intellectual property rights are reserved.
+                </p>
+                <p class="terms-text">You may view and/or print pages from the Website for your own personal use subject to restrictions set in these terms and conditions.</p>
+                
+                <div class="highlight">
+                    <p class="terms-text"><strong>You must not:</strong></p>
+                    <ul class="terms-list">
+                        <li>Republish material from CSJournal.in</li>
+                        <li>Sell, rent, or sub-license material from CSJournal.in</li>
+                        <li>Reproduce, duplicate, or copy material from CSJournal.in</li>
+                        <li>Redistribute content from CSJournal.in</li>
+                        <li>Use the content for commercial purposes without permission</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="terms-section" id="user-content">
+                <h2 class="section-title">3. User Content</h2>
+                <p class="terms-text">
+                    In these Terms & Conditions, "User Content" means material (including without limitation text, images, audio material, video material, and audio-visual material) that you submit to this website.
+                </p>
+                <p class="terms-text">By submitting User Content, you grant CSJournal.in a worldwide, irrevocable, non-exclusive, royalty-free license to use, reproduce, adapt, publish, translate, and distribute your User Content.</p>
+                <p class="terms-text">Your User Content must be your own and must not be infringing on any third party's rights. CSJournal.in reserves the right to remove any User Content from this website at any time, and for any reason, without notice.</p>
+            </div>
+
+            <div class="terms-section" id="author-application">
+                <h2 class="section-title">4. Author Application Process</h2>
+                <p class="terms-text">
+                    When you apply to become an author on CSJournal.in, you agree to the following:
+                </p>
+                <ul class="terms-list">
+                    <li><strong>Accuracy of Information:</strong> You certify that all information provided in your application is accurate and complete.</li>
+                    <li><strong>Review Process:</strong> All applications are subject to review and approval by our editorial team.</li>
+                    <li><strong>No Guarantee:</strong> Submission of an application does not guarantee acceptance as an author.</li>
+                    <li><strong>Response Time:</strong> We aim to respond to applications within 48 hours but cannot guarantee this timeframe.</li>
+                    <li><strong>Professional Conduct:</strong> Accepted authors agree to maintain professional standards in all contributions.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section" id="prohibited">
+                <h2 class="section-title">5. Prohibited Activities</h2>
+                <p class="terms-text">You are specifically restricted from all of the following:</p>
+                <ul class="terms-list">
+                    <li>Using the Website in any way that is or may be damaging to the Website</li>
+                    <li>Using the Website in any way that impacts user access to the Website</li>
+                    <li>Engaging in any data mining, data harvesting, data extracting, or any other similar activity</li>
+                    <li>Using the Website to engage in any advertising or marketing</li>
+                    <li>Impersonating any person or entity</li>
+                    <li>Interfering with the security-related features of the Website</li>
+                    <li>Using the Website contrary to applicable laws and regulations</li>
+                    <li>Uploading or transmitting viruses or any other type of malicious code</li>
+                </ul>
+            </div>
+
+            <div class="terms-section" id="third-party">
+                <h2 class="section-title">6. Third-Party Links</h2>
+                <p class="terms-text">
+                    Our website may contain links to third-party websites or services that are not owned or controlled by CSJournal.in.
+                </p>
+                <p class="terms-text">
+                    We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You acknowledge and agree that CSJournal.in shall not be responsible or liable, directly or indirectly, for any damage or loss caused by or in connection with use of any such content, goods, or services available on or through any such websites or services.
+                </p>
+            </div>
+
+            <div class="terms-section" id="termination">
+                <h2 class="section-title">7. Termination</h2>
+                <p class="terms-text">
+                    We may terminate or suspend your access to the Website immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms & Conditions.
+                </p>
+                <p class="terms-text">
+                    Upon termination, your right to use the Website will immediately cease. If you wish to terminate your account, you may simply discontinue using the Website.
+                </p>
+            </div>
+
+            <div class="terms-section" id="disclaimer">
+                <h2 class="section-title">8. Disclaimer of Warranties</h2>
+                <p class="terms-text">
+                    The Website is provided "as is," with all faults, and CSJournal.in expresses no representations or warranties of any kind related to the Website or the materials contained on the Website.
+                </p>
+                <p class="terms-text">
+                    Nothing contained on the Website shall be interpreted as advising you. The content on CSJournal.in is for informational purposes only and should not be considered professional advice.
+                </p>
+                <div class="highlight">
+                    <p class="terms-text">
+                        <strong>Important:</strong> Computer science research and technology information changes rapidly. While we strive to provide accurate and up-to-date information, we cannot guarantee the completeness, reliability, or accuracy of all content on the Website.
+                    </p>
+                </div>
+            </div>
+
+            <div class="terms-section" id="limitation">
+                <h2 class="section-title">9. Limitation of Liability</h2>
+                <p class="terms-text">
+                    In no event shall CSJournal.in, nor any of its officers, directors, and employees, be held liable for anything arising out of or in any way connected with your use of the Website.
+                </p>
+                <p class="terms-text">
+                    CSJournal.in, including its officers, directors, and employees, shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of the Website.
+                </p>
+            </div>
+
+            <div class="terms-section" id="indemnification">
+                <h2 class="section-title">10. Indemnification</h2>
+                <p class="terms-text">
+                    You hereby indemnify to the fullest extent CSJournal.in from and against any and all liabilities, costs, demands, causes of action, damages, and expenses arising in any way related to your breach of any of the provisions of these Terms.
+                </p>
+            </div>
+
+            <div class="terms-section" id="governing">
+                <h2 class="section-title">11. Governing Law</h2>
+                <p class="terms-text">
+                    These Terms shall be governed and construed in accordance with the laws of India, without regard to its conflict of law provisions.
+                </p>
+                <p class="terms-text">
+                    Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.
+                </p>
+            </div>
+
+            <div class="terms-section" id="changes">
+                <h2 class="section-title">12. Changes to Terms</h2>
+                <p class="terms-text">
+                    We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect.
+                </p>
+                <p class="terms-text">
+                    By continuing to access or use our Website after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Website.
+                </p>
+            </div>
+
+            <div class="terms-section" id="contact">
+                <h2 class="section-title">13. Contact Information</h2>
+                <p class="terms-text">If you have any questions about these Terms & Conditions, please contact us:</p>
+                
+                <div class="note-box">
+                    <h3>CSJournal.in</h3>
+                    <ul class="terms-list" style="margin-top: 15px;">
+                        <li><strong>Email:</strong> mail.csjournal@gmail.com</li>
+                        <li><strong>Website:</strong> www.csjournal.in</li>
+                        <li><strong>Address:</strong> Kolkata, West Bengal, India</li>
+                    </ul>
+                    <p class="terms-text" style="margin-top: 15px;">
+                        We will respond to all legitimate requests within a reasonable timeframe.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Smooth scrolling for table of contents links
+        document.querySelectorAll('.toc-list a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Back button functionality
+        document.querySelector('.back-home').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.history.back();
+        });
+    </script>
+</body>
+</html>
