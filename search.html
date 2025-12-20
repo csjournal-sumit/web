@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSJournal Topic Search + Request Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 16px;
+        }
+
+        #searchInput {
+            width: 90%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li a {
+            display: block;
+            padding: 10px;
+            background: #f2f2f2;
+            margin-bottom: 6px;
+            text-decoration: none;
+            color: black;
+        }
+
+        li a:hover {
+            background: #d4ffd4;
+        }
+
+        #noteBox{
+            padding:10px;
+            border-left:5px solid blue;
+            background:#f2f8ff;
+            margin-bottom:15px;
+        }
+
+        #noResultBox{
+            margin-top:20px;
+            display:none;
+        }
+
+        form{
+            background:#f8f8f8;
+            padding:15px;
+            border-radius:8px;
+            width: 320px;
+        }
+
+        input{
+            width:100%;
+            padding:8px;
+            margin-top:6px;
+            margin-bottom:12px;
+        }
+
+        button{
+            padding:10px 16px;
+            background:#007bff;
+            color:#fff;
+            border:none;
+            cursor:pointer;
+        }
+
+        #thankBox{
+            display:none;
+            padding:15px;
+            background:#d4ffd4;
+            border-radius:8px;
+            margin-top:10px;
+        }
+
+        .section-title{
+            margin-top:25px;
+            font-weight:bold;
+            font-size:20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Note above search -->
+<div id="noteBox">
+<b>NOTE:</b> Every Sunday we add new topics 🚀 <br>
+Those topics may not be indexed here. <br>
+
+<button onclick="window.open('https://csjournal.in/journal/list','_blank')">
+    📌 See Latest Added Topics
+</button>
+</div>
+
+<h2>Search Topic</h2>
+
+<input type="text" id="searchInput" placeholder="Search keyword..." onkeyup="searchFunction()">
+
+<!-- Past featured section -->
+<div class="section-title">Past Featured Topics 👇</div>
+
+<ul id="linkList">
+
+    <li data-keywords="physics experiment optics thermodynamics mechanics science report research">
+        <a href="#" target="_blank">Project Report - Physics</a>
+    </li>
+
+    <li data-keywords="marks sheet exam result score school college attendance">
+        <a href="#" target="_blank">Student Marks Sheet</a>
+    </li>
+
+    <li data-keywords="laser coherent optics beam interference energy wavelength notes">
+        <a href="#" target="_blank">Laser Experiment Notes</a>
+    </li>
+
+    <li data-keywords="attendance register list class students excel sheet">
+        <a href="#" target="_blank">Attendance Record 2025</a>
+    </li>
+
+</ul>
+
+
+<!-- When no result -->
+<div id="noResultBox">
+    <p>❌ Your topic not available on our site.</p>
+    <p>Request below 👇</p>
+
+    <form id="topicForm" onsubmit="sendForm(event)">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="text" id="topic" placeholder="Topic Name" required>
+        <input type="text" id="school" placeholder="School / College">
+        <input type="text" id="class" placeholder="Class / Branch">
+        <button type="submit">Send Request</button>
+    </form>
+
+    <div id="thankBox">
+        ✅ Thank you for giving us a topic. <br>
+        We will add this topic very soon 👍  
+    </div>
+</div>
+
+<script>
+function searchFunction() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let list = document.getElementById("linkList").getElementsByTagName("li");
+
+    let matchCount = 0;
+
+    for (let i = 0; i < list.length; i++) {
+
+        let title = list[i].textContent.toLowerCase();
+        let hidden = list[i].getAttribute("data-keywords").toLowerCase();
+
+        if (title.includes(input) || hidden.includes(input)) {
+            list[i].style.display = "";
+            matchCount++;
+        } else {
+            list[i].style.display = "none";
+        }
+    }
+
+    if (matchCount === 0)
+        document.getElementById("noResultBox").style.display = "block";
+    else
+        document.getElementById("noResultBox").style.display = "none";
+}
+
+function sendForm(event){
+    event.preventDefault();
+
+    const forbidden = ["porn","xxx","hack","illegal","adult","scam","spam"];
+
+    let name = document.getElementById("name").value;
+    let topic = document.getElementById("topic").value.toLowerCase();
+    let school = document.getElementById("school").value;
+    let clas = document.getElementById("class").value;
+
+    for(let i=0;i<forbidden.length;i++){
+        if(topic.includes(forbidden[i])){
+            alert("❌ This request topic is not allowed.");
+            return;
+        }
+    }
+
+    let email = "mail.csjournal@gmail.com";
+    let subject = "New Topic Request: " + topic;
+
+    let body =
+        "Name: " + name + "%0D%0A" +
+        "Topic: " + topic + "%0D%0A" +
+        "School / College: " + school + "%0D%0A" +
+        "Class / Branch: " + clas;
+
+    window.location.href =
+        "mailto:" + email +
+        "?subject=" + subject +
+        "&body=" + body;
+
+    document.getElementById("topicForm").style.display = "none";
+    document.getElementById("thankBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>
