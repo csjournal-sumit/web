@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Google Sheet Viewer - Password Protected</title>
+
+<style>
+    body{
+        margin:0;
+        padding:0;
+        background:#f4f4f4;
+        font-family:Arial, sans-serif;
+    }
+    header{
+        background:#222;
+        padding:14px;
+        color:white;
+        text-align:center;
+        font-size:18px;
+    }
+    iframe{
+        width:100%;
+        height: calc(100vh - 60px);
+        border:none;
+        display:none; /* hide until password correct */
+    }
+    #passwordArea{
+        text-align:center;
+        padding:20px;
+    }
+    #passwordInput{
+        padding:10px;
+        width:60%;
+        font-size:16px;
+        margin-bottom:10px;
+    }
+    #btnLogin{
+        padding:10px 18px;
+        font-size:16px;
+        cursor:pointer;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    Admin page 
+</header>
+
+<div id="passwordArea">
+    <p>Enter password to view :</p>
+    <input id="passwordInput" type="password" placeholder="Enter password">
+    <br>
+    <button id="btnLogin" onclick="unlock()">Submit</button>
+</div>
+
+<iframe 
+    id="sheetFrame"
+    sandbox="allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation">
+</iframe>
+
+<script>
+const PASSWORD = "9800952878";
+const sheetURL = "https://docs.google.com/spreadsheets/d/1A8xxBZRuilPpW6yHRPDqpnPIc9L_tGV_BYNPNa6Ixx4/htmlview";
+
+function unlock(){
+    const input = document.getElementById("passwordInput").value;
+
+    if(input === PASSWORD){
+        document.getElementById("passwordArea").style.display = "none";
+        const frame = document.getElementById("sheetFrame");
+        frame.style.display = "block";
+        frame.src = sheetURL;
+    }else{
+        alert("Wrong password ❌");
+    }
+}
+</script>
+
+</body>
+</html>
