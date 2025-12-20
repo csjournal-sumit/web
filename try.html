@@ -2,25 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> CSjournal Document Viewer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Google Sheet Viewer</title>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
+    body{
+        margin:0;
+        padding:0;
+        background:#f4f4f4;
+        font-family:Arial, sans-serif;
     }
-    header {
-        background: #333;
-        color: white;
-        text-align: center;
-        padding: 10px;
+    header{
+        background:#222;
+        padding:14px;
+        color:white;
+        text-align:center;
+        font-size:18px;
     }
-    iframe {
-        width: 100%;
-        height: 90vh;
-        border: none;
+    iframe{
+        width:100%;
+        height: calc(100vh - 60px);
+        border:none;
     }
 </style>
 </head>
@@ -28,29 +30,13 @@
 <body>
 
 <header>
-    JOURNAL Viewer
+    Google Sheet Viewer (links open in new tab)
 </header>
 
 <iframe 
- id="docFrame"
- src="https://docs.google.com/document/d/1MNPya3BP5Tdjr0yb2XH0NGXUNswCz0LiK70LRxiicb0/preview"
- sandbox="allow-scripts allow-same-origin allow-popups"
-></iframe>
-
-<script>
-document.getElementById("docFrame").addEventListener("load", function() {
-
-    try{
-        const links = this.contentDocument.querySelectorAll("a");
-        links.forEach(link => {
-            link.setAttribute("target", "_blank");
-        });
-    }catch(e){
-        console.warn("Cross origin block prevented direct link editing.");
-    }
-
-});
-</script>
+    src="https://docs.google.com/spreadsheets/d/15xUu3IXa3jMRAdWWQ-zKqv-nkkhhmFNNgVksyjE7dwk/htmlview"
+    sandbox="allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation">
+</iframe>
 
 </body>
 </html>
