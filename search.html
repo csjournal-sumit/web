@@ -1,208 +1,970 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CSJournal Topic Search + Request Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to CSJournal.in</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 16px;
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --accent-color: #ffcc00;
+            --text-color: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --card-bg: #2d2d2d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
         }
 
-        #searchInput {
-            width: 90%;
-            padding: 10px;
-            font-size: 18px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .welcome-header {
+            background-color: var(--secondary-bg);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .back-home:hover {
+            color: var(--accent-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .main-container {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+
+        .datetime-container {
+            background-color: var(--secondary-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+
+        .date-display {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .time-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timezone {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .quote-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quote-content {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .quote-author {
+            text-align: right;
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .quote-loading {
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .refresh-quote {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-quote:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+        }
+
+        /* Important Points */
+        .points-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .points-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .points-list {
+            list-style: none;
+        }
+
+        .points-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .points-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Contact Form Trigger */
+        .form-trigger-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 2px dashed rgba(255, 204, 0, 0.3);
+        }
+
+        .form-trigger-title {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .form-trigger-description {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        .open-form-btn {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            border: 2px solid var(--accent-color);
+            cursor: pointer;
+        }
+
+        .open-form-btn:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Quick Links */
+        .quick-links-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .quick-links-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .quick-links-list {
+            list-style: none;
+        }
+
+        .quick-links-list li {
             margin-bottom: 12px;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li a {
-            display: block;
-            padding: 10px;
-            background: #f2f2f2;
-            margin-bottom: 6px;
+        .quick-links-list a {
+            color: var(--text-color);
             text-decoration: none;
-            color: black;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: var(--transition);
+            border: 1px solid transparent;
         }
 
-        li a:hover {
-            background: #d4ffd4;
+        .quick-links-list a:hover {
+            background-color: rgba(255, 204, 0, 0.1);
+            color: var(--accent-color);
+            border-color: rgba(255, 204, 0, 0.3);
+            transform: translateX(5px);
         }
 
-        #noteBox{
-            padding:10px;
-            border-left:5px solid blue;
-            background:#f2f8ff;
-            margin-bottom:15px;
+        /* Form Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
         }
 
-        #noResultBox{
-            margin-top:20px;
-            display:none;
+        .modal-overlay.active {
+            display: flex;
         }
 
-        form{
-            background:#f8f8f8;
-            padding:15px;
-            border-radius:8px;
-            width: 320px;
+        .contact-modal {
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--accent-color);
+            animation: modalFadeIn 0.3s ease-out;
         }
 
-        input{
-            width:100%;
-            padding:8px;
-            margin-top:6px;
-            margin-bottom:12px;
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        button{
-            padding:10px 16px;
-            background:#007bff;
-            color:#fff;
-            border:none;
-            cursor:pointer;
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        #thankBox{
-            display:none;
-            padding:15px;
-            background:#d4ffd4;
-            border-radius:8px;
-            margin-top:10px;
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--accent-color);
         }
 
-        .section-title{
-            margin-top:25px;
-            font-weight:bold;
-            font-size:20px;
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255, 204, 0, 0.1);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .form-submit:hover {
+            background-color: #e6b800;
+            transform: translateY(-2px);
+        }
+
+        .form-required {
+            color: #ff6b6b;
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin: 40px auto;
+            border-left: 5px solid #4CAF50;
+            display: none;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .success-text {
+            color: var(--text-color);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .welcome-header {
+                padding: 15px;
+            }
+            
+            .logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .date-display {
+                font-size: 1.5rem;
+            }
+            
+            .time-display {
+                font-size: 2rem;
+            }
+            
+            .welcome-section, .quote-section, .points-section, 
+            .form-trigger-section, .quick-links-section {
+                padding: 25px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-header {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .logo-container {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .back-home {
+                order: 2;
+                font-size: 1rem;
+            }
+            
+            .main-container {
+                padding: 0 15px;
+            }
         }
     </style>
 </head>
-
 <body>
+    <!-- Welcome Page -->
+    <div id="welcome-page">
+        <!-- Header -->
+        <header class="welcome-header">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            
+            <div class="logo-container">
+                <img src="https://i.ibb.co/wrjbmtCp/ert.png" alt="CSJournal Logo" class="logo-img">
+                <div class="logo-text">CSJournal.in</div>
+            </div>
+            
+            <div style="width: 100px;"></div> <!-- Spacer -->
+        </header>
 
-<!-- Note above search -->
-<div id="noteBox">
-<b>NOTE:</b> Every Sunday we add new topics 🚀 <br>
-Those topics may not be indexed here. <br>
+        <!-- Main Content -->
+        <main class="main-container">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <h1 class="welcome-title">Welcome to CSJournal.in</h1>
+                    
+                    <div class="datetime-container">
+                        <div class="date-display" id="current-date">Loading date...</div>
+                        <div class="time-display" id="current-time">Loading time...</div>
+                        <div class="timezone">Indian Standard Time (IST)</div>
+                    </div>
+                    
+                    <p style="color: var(--text-color); font-size: 1.1rem; margin-bottom: 25px;">
+                        Welcome to the premier platform for computer science research and innovation. 
+                        Explore cutting-edge research, connect with experts, and contribute to the advancement 
+                        of technology.
+                    </p>
+                </section>
 
-<button onclick="window.open('https://csjournal.in/journal/list','_blank')">
-    📌 See Latest Added Topics
-</button>
-</div>
+                <!-- Daily Quote Section -->
+                <section class="quote-section">
+                    <h2 class="quote-title">
+                        <i class="fas fa-quote-left"></i> Daily Motivational Quote
+                    </h2>
+                    
+                    <div id="quote-container">
+                        <div class="quote-loading">
+                            <i class="fas fa-spinner fa-spin"></i> Loading today's quote...
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button class="refresh-quote" id="refresh-quote">
+                            <i class="fas fa-sync-alt"></i> New Quote
+                        </button>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px;">
+                            Daily quote rotates based on day of the month
+                        </div>
+                    </div>
+                </section>
 
-<h2>Search Topic</h2>
+                <!-- Important Points Section -->
+                <section class="points-section">
+                    <h2 class="points-title">
+                        <i class="fas fa-star"></i> Why CSJournal.in?
+                    </h2>
+                    
+                    <ul class="points-list">
+                        <li>Access to cutting-edge computer tech journals</li>
+                        <li>Connect with leading industry experts</li>
+                        <li>Stay updated with the latest technology trends and innovations</li>
+                        <li>Opportunity to publish your research and contribute to the community</li>
+                        <li>Free resources for students, researchers, and professionals</li>
+                        <li>Regular journal</li>
+                        <li>Collaborative environment for learning and innovation</li>
+                    </ul>
+                </section>
+            </div>
 
-<input type="text" id="searchInput" placeholder="Search keyword..." onkeyup="searchFunction()">
+            <!-- Right Column (Sidebar) -->
+            <div class="sidebar">
+                <!-- Contact Form Trigger -->
+                <section class="form-trigger-section">
+                    <h2 class="form-trigger-title">Have a Question ?</h2>
+                    <p class="form-trigger-description">
+                        Submit your query, research topic, or suggestion. Our team will get back to you within 48 hours.
+                    </p>
+                    <button class="open-form-btn" id="open-form-btn">
+                        <i class="fas fa-envelope"></i> Send Message
+                    </button>
+                </section>
 
-<!-- Past featured section -->
-<div class="section-title">Past Featured Topics 👇</div>
-
-<ul id="linkList">
-
-    <li data-keywords="physics experiment optics thermodynamics mechanics science report research">
-        <a href="#" target="_blank">Project Report - Physics</a>
-    </li>
-
-    <li data-keywords="marks sheet exam result score school college attendance">
-        <a href="#" target="_blank">Student Marks Sheet</a>
-    </li>
-
-    <li data-keywords="laser coherent optics beam interference energy wavelength notes">
-        <a href="#" target="_blank">Laser Experiment Notes</a>
-    </li>
-
-    <li data-keywords="attendance register list class students excel sheet">
-        <a href="#" target="_blank">Attendance Record 2025</a>
-    </li>
-
-</ul>
-
-
-<!-- When no result -->
-<div id="noResultBox">
-    <p>❌ Your topic not available on our site.</p>
-    <p>Request below 👇</p>
-
-    <form id="topicForm" onsubmit="sendForm(event)">
-        <input type="text" id="name" placeholder="Your Name" required>
-        <input type="text" id="topic" placeholder="Topic Name" required>
-        <input type="text" id="school" placeholder="School / College">
-        <input type="text" id="class" placeholder="Class / Branch">
-        <button type="submit">Send Request</button>
-    </form>
-
-    <div id="thankBox">
-        ✅ Thank you for giving us a topic. <br>
-        We will add this topic very soon 👍  
+                <!-- Quick Links -->
+                <section class="quick-links-section">
+                    <h2 class="quick-links-title">Quick Links</h2>
+                    
+                    <ul class="quick-links-list">
+                        <li>
+                            <a href="https://www.csjournal.in/journal/list">
+                                <i class="fas fa-book"></i> Research Library
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.csjournal.in/journal/list">
+                                <i class="fas fa-users"></i> Author Directory
+                            </a>
+                        </li>
+                        <li>
+                            <a href="privacy-policy.html">
+                                <i class="fas fa-shield-alt"></i> Privacy Policy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="terms-conditions.html">
+                                <i class="fas fa-file-contract"></i> Terms & Conditions
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </main>
     </div>
-</div>
 
-<script>
-function searchFunction() {
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let list = document.getElementById("linkList").getElementsByTagName("li");
+    <!-- Contact Form Modal -->
+    <div class="modal-overlay" id="form-modal">
+        <div class="contact-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Send us a Message</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            Full Name <span class="form-required">*</span>
+                        </label>
+                        <input type="text" id="name" name="name" class="form-input" required 
+                               placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="institution" class="form-label">
+                            School/College/Institution <span class="form-required">*</span>
+                        </label>
+                        <input type="text" id="institution" name="institution" class="form-input" required 
+                               placeholder="Enter your school, college or institution">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="class" class="form-label">
+                            Class/Branch/Department <span class="form-required">*</span>
+                        </label>
+                        <input type="text" id="class" name="class" class="form-input" required 
+                               placeholder="e.g., B.Tech CSE, MCA, Research Scholar">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="topic" class="form-label">
+                            Topic/Subject <span class="form-required">*</span>
+                        </label>
+                        <input type="text" id="topic" name="topic" class="form-input" required 
+                               placeholder="Enter the topic or subject of your query">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description" class="form-label">
+                            Description/Message <span class="form-required">*</span>
+                        </label>
+                        <textarea id="description" name="description" class="form-textarea" required 
+                                  placeholder="Please provide details about your query, research topic, or suggestion..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-paper-plane"></i> Submit Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    let matchCount = 0;
+    <!-- Success Message -->
+    <div class="success-message" id="success-message">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2 class="success-title">Message Sent Successfully!</h2>
+        <p class="success-text">
+            Thank you for contacting CSJournal.in. Your message has been sent to <strong>mail.csjournal@gmail.com</strong>.
+        </p>
+        <p class="success-text">
+            <strong>If you have submitted a query, you will receive a reply from our team within 48 hours.</strong>
+            We review each message carefully and will get back to you with the appropriate response.
+        </p>
+        <button class="open-form-btn" id="back-to-welcome" style="margin-top: 20px;">
+            <i class="fas fa-home"></i> Return to Welcome Page
+        </button>
+    </div>
 
-    for (let i = 0; i < list.length; i++) {
-
-        let title = list[i].textContent.toLowerCase();
-        let hidden = list[i].getAttribute("data-keywords").toLowerCase();
-
-        if (title.includes(input) || hidden.includes(input)) {
-            list[i].style.display = "";
-            matchCount++;
-        } else {
-            list[i].style.display = "none";
+    <script>
+        // Live Date and Time for IST
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Convert to IST (UTC+5:30)
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const ist = new Date(utc + (5.5 * 60 * 60000));
+            
+            // Format date
+            const optionsDate = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const formattedDate = ist.toLocaleDateString('en-IN', optionsDate);
+            
+            // Format time
+            const hours = ist.getHours().toString().padStart(2, '0');
+            const minutes = ist.getMinutes().toString().padStart(2, '0');
+            const seconds = ist.getSeconds().toString().padStart(2, '0');
+            const formattedTime = `${hours}:${minutes}:${seconds}`;
+            
+            // Update DOM
+            document.getElementById('current-date').textContent = formattedDate;
+            document.getElementById('current-time').textContent = formattedTime;
+            
+            // Return day of month for quote selection
+            return ist.getDate();
         }
-    }
+        
+        // Update time immediately and then every second
+        const currentDay = updateDateTime();
+        setInterval(updateDateTime, 1000);
 
-    if (matchCount === 0)
-        document.getElementById("noResultBox").style.display = "block";
-    else
-        document.getElementById("noResultBox").style.display = "none";
-}
+        // Local Quotes Database (31 quotes - one for each day of the month)
+        const quotes = [
+            {quote: "The computer was born to solve problems that did not exist before.", author: "Bill Gates"},
+            {quote: "The best way to predict the future is to invent it.", author: "Alan Kay"},
+            {quote: "Programming is not about typing, it's about thinking.", author: "Rich Hickey"},
+            {quote: "The function of good software is to make the complex appear to be simple.", author: "Grady Booch"},
+            {quote: "First, solve the problem. Then, write the code.", author: "John Johnson"},
+            {quote: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", author: "Martin Fowler"},
+            {quote: "Software is a great combination between artistry and engineering.", author: "Bill Gates"},
+            {quote: "Technology is nothing. What's important is that you have faith in people, that they're basically good and smart.", author: "Steve Jobs"},
+            {quote: "The only way to learn a new programming language is by writing programs in it.", author: "Dennis Ritchie"},
+            {quote: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs"},
+            {quote: "Make it work, make it right, make it fast.", author: "Kent Beck"},
+            {quote: "The most disastrous thing that you can ever learn is your first programming language.", author: "Alan Kay"},
+            {quote: "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.", author: "Brian Kernighan"},
+            {quote: "Measuring programming progress by lines of code is like measuring aircraft building progress by weight.", author: "Bill Gates"},
+            {quote: "Good code is its own best documentation.", author: "Steve McConnell"},
+            {quote: "People don't care about what you say, they care about what you build.", author: "Mark Zuckerberg"},
+            {quote: "The most exciting phrase to hear in science, the one that heralds new discoveries, is not 'Eureka!' but 'That's funny...'", author: "Isaac Asimov"},
+            {quote: "The internet is becoming the town square for the global village of tomorrow.", author: "Bill Gates"},
+            {quote: "The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life.", author: "Bill Gates"},
+            {quote: "The Web as I envisaged it, we have not seen it yet. The future is still so much bigger than the past.", author: "Tim Berners-Lee"},
+            {quote: "Let's go invent tomorrow instead of worrying about what happened yesterday.", author: "Steve Jobs"},
+            {quote: "Great things in business are never done by one person. They're done by a team of people.", author: "Steve Jobs"},
+            {quote: "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.", author: "Steve Jobs"},
+            {quote: "The computer is incredibly fast, accurate, and stupid. Man is unbelievably slow, inaccurate, and brilliant. The marriage of the two is a challenge and opportunity beyond imagination.", author: "Albert Einstein"},
+            {quote: "One machine can do the work of fifty ordinary men. No machine can do the work of one extraordinary man.", author: "Elbert Hubbard"},
+            {quote: "Technology is a useful servant but a dangerous master.", author: "Christian Lous Lange"},
+            {quote: "The art of programming is the skill of controlling complexity.", author: "Marijn Haverbeke"},
+            {quote: "The real problem is not whether machines think but whether men do.", author: "B. F. Skinner"},
+            {quote: "Computer science is no more about computers than astronomy is about telescopes.", author: "Edsger Dijkstra"},
+            {quote: "Programming is the process of creating a set of instructions that tell a computer how to perform a task.", author: "Unknown"},
+            {quote: "Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.", author: "Patrick McKenzie"}
+        ];
 
-function sendForm(event){
-    event.preventDefault();
-
-    const forbidden = ["porn","xxx","hack","illegal","adult","scam","spam"];
-
-    let name = document.getElementById("name").value;
-    let topic = document.getElementById("topic").value.toLowerCase();
-    let school = document.getElementById("school").value;
-    let clas = document.getElementById("class").value;
-
-    for(let i=0;i<forbidden.length;i++){
-        if(topic.includes(forbidden[i])){
-            alert("❌ This request topic is not allowed.");
-            return;
+        // Get Daily Motivational Quote (based on day of month)
+        function getDailyQuote() {
+            const quoteContainer = document.getElementById('quote-container');
+            const dayOfMonth = currentDay - 1; // Convert to 0-based index
+            const quoteIndex = dayOfMonth % quotes.length; // Ensure we have a valid index
+            
+            const todaysQuote = quotes[quoteIndex];
+            
+            quoteContainer.innerHTML = `
+                <div class="quote-content">"${todaysQuote.quote}"</div>
+                <div class="quote-author">— ${todaysQuote.author}</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px; text-align: center;">
+                    Quote for Day ${dayOfMonth + 1} of the month
+                </div>
+            `;
         }
-    }
 
-    let email = "mail.csjournal@gmail.com";
-    let subject = "New Topic Request: " + topic;
+        // Get Random Quote (for refresh button)
+        function getRandomQuote() {
+            const quoteContainer = document.getElementById('quote-container');
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const randomQuote = quotes[randomIndex];
+            
+            quoteContainer.innerHTML = `
+                <div class="quote-content">"${randomQuote.quote}"</div>
+                <div class="quote-author">— ${randomQuote.author}</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px; text-align: center;">
+                    Random inspirational quote
+                </div>
+            `;
+        }
 
-    let body =
-        "Name: " + name + "%0D%0A" +
-        "Topic: " + topic + "%0D%0A" +
-        "School / College: " + school + "%0D%0A" +
-        "Class / Branch: " + clas;
+        // Form Modal Handling
+        const formModal = document.getElementById('form-modal');
+        const openFormBtn = document.getElementById('open-form-btn');
+        const modalClose = document.getElementById('modal-close');
+        const contactForm = document.getElementById('contact-form');
+        const welcomePage = document.getElementById('welcome-page');
+        const successMessage = document.getElementById('success-message');
+        const backToWelcomeBtn = document.getElementById('back-to-welcome');
+        const refreshQuoteBtn = document.getElementById('refresh-quote');
 
-    window.location.href =
-        "mailto:" + email +
-        "?subject=" + subject +
-        "&body=" + body;
+        // Open form modal
+        openFormBtn.addEventListener('click', () => {
+            formModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
 
-    document.getElementById("topicForm").style.display = "none";
-    document.getElementById("thankBox").style.display = "block";
-}
-</script>
+        // Close form modal
+        modalClose.addEventListener('click', () => {
+            formModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
 
+        // Close modal when clicking outside
+        formModal.addEventListener('click', (e) => {
+            if (e.target === formModal) {
+                formModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Handle form submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                institution: document.getElementById('institution').value,
+                class: document.getElementById('class').value,
+                topic: document.getElementById('topic').value,
+                description: document.getElementById('description').value,
+                timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+                subject: "CSJournal.in Query Submission"
+            };
+            
+            // Create email body
+            const emailBody = `
+New Query Submission - CSJournal.in
+
+Name: ${formData.name}
+Institution: ${formData.institution}
+Class/Branch: ${formData.class}
+Topic: ${formData.topic}
+
+Description/Message:
+${formData.description}
+
+Submitted on: ${formData.timestamp} (IST)
+            `.trim();
+            
+            // Create mailto link
+            const email = "mail.csjournal@gmail.com";
+            const subject = encodeURIComponent(formData.subject);
+            const body = encodeURIComponent(emailBody);
+            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message after a short delay
+            setTimeout(() => {
+                formModal.classList.remove('active');
+                welcomePage.style.display = 'none';
+                successMessage.classList.add('active');
+                document.body.style.overflow = 'auto';
+                
+                // Reset form
+                contactForm.reset();
+            }, 500);
+        });
+
+        // Handle back to welcome page
+        backToWelcomeBtn.addEventListener('click', () => {
+            successMessage.classList.remove('active');
+            welcomePage.style.display = 'block';
+            window.scrollTo(0, 0);
+        });
+
+        // Handle quote refresh
+        refreshQuoteBtn.addEventListener('click', getRandomQuote);
+
+        // Initial load of daily quote
+        getDailyQuote();
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && formModal.classList.contains('active')) {
+                formModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
 </body>
 </html>
